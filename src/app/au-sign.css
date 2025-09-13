@@ -1,0 +1,93 @@
+/* Glass container for Authority Signup (same as login for consistency) */
+.authority-container {
+  background: rgba(255, 255, 255, 0.25); /* glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 40px 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 50px auto;
+}
+
+.authority-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Heading */
+.authority-container h2 {
+  font-size: 28px;
+  color: #e74c3c; /* red theme */
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+.authority-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #b0bec5;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.authority-container input:focus {
+  border-color: #e74c3c;
+  outline: none;
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.4);
+}
+
+/* Button */
+.authority-container button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e74c3c; /* red */
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.authority-container button:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+/* Paragraph / link */
+.authority-container p {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.authority-container p a {
+  color: #e74c3c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.authority-container p a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive for mobile */
+@media (max-width: 480px) {
+  .authority-container {
+    padding: 30px 20px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

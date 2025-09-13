@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import "../../globals.css";
+import "../../pu-sign.css";
 
 export default function PublicSignup() {
   const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ export default function PublicSignup() {
   };
 
   return (
-    <div style={{ maxWidth: "350px", margin: "80px auto", textAlign: "center" }}>
+    <div className="public-container">
       <h2>Sign Up</h2>
       <form onSubmit={handleSignup} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
         <input
@@ -23,7 +23,6 @@ export default function PublicSignup() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{ padding: "8px" }}
         />
         <input
           type="password"
@@ -31,11 +30,10 @@ export default function PublicSignup() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={{ padding: "8px" }}
         />
-        <button type="submit" style={{ padding: "10px" }}>Sign Up</button>
+        <button type="submit">Sign Up</button>
       </form>
-      <p style={{ marginTop: "12px" }}>
+      <p>
         Already have an account? <Link href="/public-user/login">Login</Link>
       </p>
     </div>

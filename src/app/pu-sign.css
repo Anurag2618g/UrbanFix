@@ -1,0 +1,93 @@
+/* Glass container for Public Signup */
+.public-container {
+  background: rgba(255, 255, 255, 0.25); /* glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 40px 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 50px auto;
+}
+
+.public-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Heading */
+.public-container h2 {
+  font-size: 28px;
+  color: #27ae60; /* green theme */
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+.public-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #b0bec5;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.public-container input:focus {
+  border-color: #27ae60;
+  outline: none;
+  box-shadow: 0 0 5px rgba(39, 174, 96, 0.4);
+}
+
+/* Button */
+.public-container button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #27ae60; /* green */
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.public-container button:hover {
+  background-color: #1e8449;
+  transform: scale(1.05);
+}
+
+/* Paragraph / link */
+.public-container p {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.public-container p a {
+  color: #27ae60;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.public-container p a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive for mobile */
+@media (max-width: 480px) {
+  .public-container {
+    padding: 30px 20px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import "../../au-sign.css";
+import "../../style/au-sign.css";
 
 export default function AuthoritySignup() {
   const [email, setEmail] = useState("");

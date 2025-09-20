@@ -13,6 +13,12 @@ export default function HomePage() {
       <Link href="/authority/login">
         <button className="authority-btn">Authority Login</button>
       </Link>
+      <Link href="/public-user/dashboard">
+      <button>public dashboard</button>
+      </Link>
+      <Link href="/authority/dashboard">
+      <button>authority dashboard</button>
+      </Link>
     </div>
   );
 }

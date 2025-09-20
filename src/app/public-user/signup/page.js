@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import "../../pu-sign.css";
+import "../../style/pu-sign.css";
 
 export default function PublicSignup() {
   const [email, setEmail] = useState("");

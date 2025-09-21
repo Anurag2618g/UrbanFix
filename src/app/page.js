@@ -16,7 +16,7 @@ export default function HomePage() {
       <Link href="/public-user/dashboard">
       <button>public dashboard</button>
       </Link>
-      <Link href="/authority/dashboard">
+      <Link href="/authority/components/home">
       <button>authority dashboard</button>
       </Link>
     </div>

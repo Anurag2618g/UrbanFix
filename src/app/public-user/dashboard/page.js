@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 // A custom component to handle the status badge logic
 const StatusBadge = ({ status }) => {
@@ -21,38 +22,57 @@ const IssueItem = ({ issue }) => (
   </div>
 );
 
-// New Header Component
-const Header = () => (
-  <header className="site-header">
-    <div className="header-container">
-      {/* Logo on the left */}
-      <div className="logo-section">
-        {/* Placeholder for a logo, can be replaced with a real SVG or image */}
-        <span role="img" aria-label="city-logo" className="logo-icon">🏙️</span>
-        <span className="logo-text">CivicConnect</span>
-      </div>
+// Header Component with mobile menu functionality
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-      {/* Navigation links on the right */}
-      <nav className="header-nav">
-        <a href="/home" className="nav-link">
-          Home
-        </a>
-        <a href="/complaints" className="nav-link">
-          Complaints
-        </a>
-        <a href="/resolved" className="nav-link">
-          Resolved
-        </a>
-        <a href="/about" className="nav-link">
-          About
-        </a>
-        <a href="/feedback" className="nav-link">
-          Feedback
-        </a>
-      </nav>
-      {/* TODO: Add a mobile menu button here */}
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <header className="site-header">
+      <div className="header-container">
+        <div className="logo-section">
+          <span role="img" aria-label="city-logo" className="logo-icon">🏙️</span>
+          <span className="logo-text">CivicConnect</span>
+        </div>
+        <nav className={`header-nav ${isMenuOpen ? "mobile-menu-open" : ""}`}>
+          <Link href="/publ/dashboardic-user" className="nav-link">
+            Home
+          </Link>
+          <Link href="/public-user/Complaints" className="nav-link">
+            Complaints
+          </Link>
+          <Link href="/public-user/resolved" className="nav-link">
+            Resolved
+          </Link>
+          <Link href="/about" className="nav-link">
+            About
+          </Link>
+          <Link href="/public-user/feedback" className="nav-link">
+            Feedback
+          </Link>
+        </nav>
+        <button className="mobile-menu-button" onClick={toggleMenu}>
+          ☰
+        </button>
+      </div>
+    </header>
+  );
+};
+
+// Footer Component
+const Footer = () => (
+  <footer className="site-footer">
+    <div className="footer-container">
+      <p>&copy; 2025 CivicConnect. All rights reserved.</p>
+      <div className="footer-links">
+        <Link href="/privacy" className="footer-link">Privacy Policy</Link>
+        <Link href="/terms" className="footer-link">Terms of Service</Link>
+      </div>
     </div>
-  </header>
+  </footer>
 );
 
 // The main page component which is the default export
@@ -68,25 +88,46 @@ const PublicDashboard = () => {
       <style>
         {`
           /* Base Styles */
-          .dashboard-container {
-            min-height: 100vh;
-            background-color: #f3f4f6;
-            font-family: ui-sans-serif, system-ui, sans-serif;
+          :root {
+            --bg-color: #f3f4f6;
+            --text-color: #1f2937;
+            --secondary-text-color: #4b5563;
+            --accent-color: #2563eb;
+            --white-color: #fff;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
           }
 
+          .dashboard-container {
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            font-family: ui-sans-serif, system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+          }
+
+          /* Header */
           .site-header {
-            background-color: #fff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-color: #1f2937; /* Dark background for header */
+            color: var(--white-color);
+            box-shadow: var(--shadow-md);
             width: 100%;
             position: sticky;
             top: 0;
             z-index: 50;
           }
+          
+          .site-header .nav-link, .site-header .logo-text, .site-header .mobile-menu-button {
+            color: var(--white-color);
+          }
+
+          .site-header .nav-link:hover {
+            color: var(--accent-color);
+          }
 
           .header-container {
             max-width: 1280px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
@@ -100,45 +141,66 @@ const PublicDashboard = () => {
           }
 
           .logo-icon {
-            font-size: 1.875rem; /* 30px */
-            color: #2563eb;
+            font-size: 1.875rem;
+            color: var(--accent-color);
           }
 
           .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #1f2937;
             letter-spacing: -0.025em;
           }
 
           .header-nav {
-            display: none;
+            display: none; /* Hide by default on small screens */
             gap: 1.5rem;
           }
 
-          @media (min-width: 768px) {
-            .header-nav {
-              display: flex;
-            }
+          /* Mobile Menu Toggle */
+          .header-nav.mobile-menu-open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #1f2937;
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-md);
           }
 
           .nav-link {
-            color: #4b5563;
+            color: var(--secondary-text-color);
             font-weight: 500;
-            transition-property: color;
-            transition-duration: 0.15s;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition: color 0.15s ease-in-out;
           }
 
           .nav-link:hover {
-            color: #2563eb;
+            color: var(--accent-color);
           }
 
+          .mobile-menu-button {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+          }
+
+          /* Main Content */
           .main-content {
+            flex-grow: 1;
             max-width: 1024px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background-color: var(--white-color); /* White background for main content */
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
           }
 
           .main-header {
@@ -149,29 +211,21 @@ const PublicDashboard = () => {
             margin-bottom: 1.5rem;
           }
 
-          @media (min-width: 640px) {
-            .main-header {
-              flex-direction: row;
-              align-items: center;
-            }
-          }
-
           .main-title {
             font-size: 1.875rem;
             font-weight: 800;
-            color: #1f2937;
+            color: var(--text-color);
             letter-spacing: -0.025em;
+            margin-bottom: 1rem;
           }
 
           .report-button {
-            background-color: #2563eb;
-            color: #fff;
+            background-color: var(--accent-color);
+            color: var(--white-color);
             padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition-property: background-color;
-            transition-duration: 0.15s;
-            margin-top: 1rem;
+            transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
           }
 
           .report-button:hover {
@@ -180,12 +234,6 @@ const PublicDashboard = () => {
 
           .report-button:active {
             transform: scale(0.95);
-          }
-
-          @media (min-width: 640px) {
-            .report-button {
-              margin-top: 0;
-            }
           }
 
           .section-title {
@@ -202,50 +250,34 @@ const PublicDashboard = () => {
           }
 
           .issue-item {
-            background-color: #fff;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            background-color: var(--white-color);
+            box-shadow: var(--shadow-light);
             border-radius: 0.5rem;
             padding: 1rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: flex-start;
-            transition-property: transform;
-            transition-duration: 0.1s;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.1s ease-in-out;
           }
 
           .issue-item:hover {
             transform: scale(1.01);
           }
 
-          @media (min-width: 640px) {
-            .issue-item {
-              flex-direction: row;
-              align-items: center;
-            }
-          }
-
           .issue-title {
             font-weight: 500;
-            color: #1f2937;
+            color: var(--text-color);
             margin-bottom: 0.5rem;
-          }
-
-          @media (min-width: 640px) {
-            .issue-title {
-              margin-bottom: 0;
-            }
           }
 
           .empty-state {
             text-align: center;
-            padding-top: 2.5rem;
-            padding-bottom: 2.5rem;
+            padding: 2.5rem;
             color: #6b7280;
-            background-color: #fff;
+            background-color: var(--white-color);
             border-radius: 0.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-light);
           }
 
           .empty-text {
@@ -253,16 +285,82 @@ const PublicDashboard = () => {
           }
 
           .empty-link {
-            color: #2563eb;
+            color: var(--accent-color);
             font-weight: 600;
             text-decoration: underline;
+          }
+
+          /* Footer */
+          .site-footer {
+            background-color: #374151;
+            color: #d1d5db;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin-top: auto;
+          }
+
+          .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+          }
+
+          .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+          .footer-link {
+            color: #9ca3af;
+            transition: color 0.15s ease-in-out;
+          }
+
+          .footer-link:hover {
+            color: #e5e7eb;
+          }
+
+          /* Media Queries for Responsiveness */
+          @media (min-width: 640px) {
+            .main-header {
+              flex-direction: row;
+              align-items: center;
+            }
+            .main-title {
+              margin-bottom: 0;
+            }
+            .report-button {
+              margin-top: 0;
+            }
+            .issue-item {
+              flex-direction: row;
+              align-items: center;
+            }
+            .issue-title {
+              margin-bottom: 0;
+            }
+          }
+
+          @media (min-width: 768px) {
+            .header-nav {
+              display: flex;
+              flex-direction: row;
+              position: static;
+              background-color: transparent;
+            }
+            .mobile-menu-button {
+              display: none;
+            }
+            .footer-links {
+              flex-direction: row;
+              justify-content: center;
+              gap: 1.5rem;
+            }
           }
         `}
       </style>
       <div className="dashboard-container">
-        {/* The Header component is now included */}
         <Header />
-
         <div className="main-content">
           <header className="main-header">
             <h1 className="main-title">Community Complaints Dashboard</h1>
@@ -270,7 +368,6 @@ const PublicDashboard = () => {
               + Report New Issue
             </button>
           </header>
-
           <section>
             <h2 className="section-title">My Submitted Issues</h2>
             {issues.length > 0 ? (
@@ -289,10 +386,10 @@ const PublicDashboard = () => {
             )}
           </section>
         </div>
+        <Footer />
       </div>
     </>
   );
-}
+};
 
-// The component is now the default export, resolving the Next.js error.
 export default PublicDashboard;

@@ -1,160 +1,188 @@
-"use client";
+"use client";  // ⚠️ Required for React hooks
+
 import { useState } from "react";
 
-const FeedbackPage = () => {
-  const [feedback, setFeedback] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0);
+import Head from 'next/head';
+import Footer from '../../public-user/components/Footer/page.js';
+import Header from '../../public-user/components/Header/page.js';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (feedback.trim() || rating > 0) {
-      // Here you would typically send the feedback and rating to a server
-      console.log("Feedback submitted:", { feedback, rating });
-      setIsSubmitted(true);
-      setFeedback("");
-      setRating(0);
-    }
+import styles from '../../style/Feedback.module.css';
+
+export default function Feedback() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    category: '',
+    message: '',
+    rating: 5
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitSuccess(true);
+    }, 2000);
+  };
+
+  if (submitSuccess) {
+    return (
+      <>
+        <Head>
+          <title>Feedback Submitted - CivicConnect</title>
+        </Head>
+        <Header />
+        <main className={styles.main}>
+          <div className={styles.container}>
+            <div className={styles.success}>
+              <div className={styles.successIcon}>✅</div>
+              <h1>Thank You!</h1>
+              <p>Your feedback has been submitted successfully. We appreciate your input!</p>
+              <button 
+                className={styles.submitBtn}
+                onClick={() => {
+                  setSubmitSuccess(false);
+                  setFormData({
+                    name: '',
+                    email: '',
+                    category: '',
+                    message: '',
+                    rating: 5
+                  });
+                }}
+              >
+                Submit More Feedback
+              </button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
-      <style>
-        {`
-          .page-container {
-            min-height: 100vh;
-            background-color: #f3f4f6;
-            font-family: ui-sans-serif, system-ui, sans-serif;
-            padding: 2rem 1rem;
-          }
-          /* Feedback Page Styles */
-          .feedback-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          }
-          .feedback-title {
-            font-size: 2.25rem;
-            font-weight: 800;
-            color: #1f2937;
-            text-align: center;
-            margin-bottom: 0.5rem;
-          }
-          .feedback-subtitle {
-            text-align: center;
-            color: #6b7280;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-          }
-          .feedback-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-          }
-          .feedback-textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            font-family: inherit;
-            resize: vertical;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-          }
-          .feedback-textarea:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-          }
-          .submit-button {
-            background-color: #2563eb;
-            color: #fff;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 1.125rem;
-            cursor: pointer;
-            transition: background-color 0.15s ease-in-out;
-            border: none;
-          }
-          .submit-button:hover {
-            background-color: #1d4ed8;
-          }
-          .success-message {
-            text-align: center;
-            padding: 1rem;
-            background-color: #d1fae5;
-            color: #065f46;
-            border-radius: 0.5rem;
-          }
-          .success-message-text {
-            font-weight: 600;
-          }
+      <Head>
+        <title>Feedback - CivicConnect</title>
+        <meta name="description" content="Share your feedback about CivicConnect" />
+      </Head>
 
-          /* Star Rating Styles */
-          .star-rating {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-            gap: 0.25rem;
-          }
-          .star {
-            font-size: 2rem;
-            color: #d1d5db; /* Default gray color */
-            cursor: pointer;
-            transition: color 0.2s ease-in-out;
-          }
-          .star.filled {
-            color: #fcd34d; /* Yellow for filled stars */
-          }
-        `}
-      </style>
-      <div className="page-container">
-        <div className="feedback-container">
-          <h1 className="feedback-title">Your Voice Matters</h1>
-          <p className="feedback-subtitle">Help us improve our community by sharing your valuable feedback and a rating with the authorities. Your thoughts can make a difference!</p>
-          
-          {isSubmitted ? (
-            <div className="success-message">
-              <p className="success-message-text">Thank you for your feedback! It has been submitted successfully.</p>
-            </div>
-          ) : (
-            <form className="feedback-form" onSubmit={handleSubmit}>
-              <div className="star-rating" onMouseLeave={() => setHoverRating(0)}>
-                {[...Array(5)].map((_, index) => {
-                  const starValue = index + 1;
-                  return (
-                    <span
-                      key={starValue}
-                      className={`star ${starValue <= (hoverRating || rating) ? 'filled' : ''}`}
-                      onClick={() => setRating(starValue)}
-                      onMouseEnter={() => setHoverRating(starValue)}
-                    >
-                      ★
-                    </span>
-                  );
-                })}
+      <Header />
+      
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <section className={styles.hero}>
+            <h1>💬 Share Your Feedback</h1>
+            <p>Help us improve CivicConnect with your valuable input</p>
+          </section>
+
+          <form onSubmit={handleSubmit} className={styles.feedbackForm}>
+            <div className={styles.inputRow}>
+              <div className={styles.inputGroup}>
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className={styles.input}
+                  required
+                />
               </div>
-              <textarea
-                className="feedback-textarea"
-                placeholder="Write your feedback here..."
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
+              
+              <div className={styles.inputGroup}>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className={styles.input}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="category">Feedback Category</label>
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                className={styles.select}
                 required
-              ></textarea>
-              <button type="submit" className="submit-button">
-                Submit Feedback
-              </button>
-            </form>
-          )}
+              >
+                <option value="">Select Category</option>
+                <option value="general">General Feedback</option>
+                <option value="bug">Bug Report</option>
+                <option value="feature">Feature Request</option>
+                <option value="usability">Usability</option>
+                <option value="performance">Performance</option>
+              </select>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="rating">Overall Rating</label>
+              <div className={styles.ratingGroup}>
+                {[1, 2, 3, 4, 5].map(num => (
+                  <label key={num} className={styles.ratingLabel}>
+                    <input
+                      type="radio"
+                      name="rating"
+                      value={num}
+                      checked={formData.rating == num}
+                      onChange={handleInputChange}
+                    />
+                    <span className={styles.star}>⭐</span>
+                    <span>{num}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="message">Your Feedback</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                rows="6"
+                className={styles.textarea}
+                placeholder="Share your thoughts, suggestions, or report issues..."
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`${styles.submitBtn} ${isSubmitting ? styles.loading : ''}`}
+            >
+              {isSubmitting ? '📤 Submitting...' : '📨 Submit Feedback'}
+            </button>
+          </form>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </>
   );
-};
-
-export default FeedbackPage;
+}

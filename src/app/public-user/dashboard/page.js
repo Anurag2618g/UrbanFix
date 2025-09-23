@@ -89,7 +89,7 @@ export default function Home() {
             <div className={styles.actionCard}>
               <h3>Quick Actions</h3>
               <div className={styles.actionButtons}>
-                <Link href="/report-issue" className={styles.actionButton}>
+                <Link href="/public-user/reporting_issue" className={styles.actionButton}>
                   <div className={styles.buttonIcon}>📝</div>
                   <span>Report Issue</span>
                 </Link>

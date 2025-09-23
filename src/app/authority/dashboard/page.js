@@ -96,7 +96,7 @@ export default function Home() {
                 
                 <Link href="/authority/emergency-issue" className={styles.actionButton}>
                   <div className={styles.buttonIcon}>💬</div>
-                  <span>Emergency-Issue</span>
+                  <span>Emergency-Issuep</span>
                 </Link>
                 
                 <Link href="/near-me" className={styles.actionButton}>

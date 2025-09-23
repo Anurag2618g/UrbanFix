@@ -1,0 +1,575 @@
+/* styles/About.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+}
+
+/* Header Styles */
+.header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.logo h2 {
+  color: #2563eb;
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logo h2:hover {
+  color: #1d4ed8;
+}
+
+.navigation {
+  display: flex;
+  gap: 30px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.navLink:hover,
+.navLink.active {
+  color: #2563eb;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #2563eb;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after,
+.navLink.active::after {
+  width: 100%;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+}
+
+.mainContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero Section */
+.heroSection {
+  padding: 80px 0 60px;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin: 0 -20px 60px;
+}
+
+.heroContent h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.heroDescription {
+  font-size: 20px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+/* Section Common Styles */
+.sectionContent {
+  margin-bottom: 80px;
+}
+
+.sectionContent h2 {
+  font-size: 36px;
+  color: #1f2937;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.sectionDescription {
+  text-align: center;
+  font-size: 18px;
+  color: #6b7280;
+  margin-bottom: 50px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mission Section */
+.missionSection {
+  background-color: #ffffff;
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  margin: 0 -20px 80px;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.missionCard {
+  text-align: center;
+  padding: 30px;
+  background-color: #f9fafb;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.missionCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.missionIcon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.missionCard h3 {
+  font-size: 22px;
+  color: #1f2937;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.missionCard p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Process Section */
+.processSection {
+  margin-bottom: 80px;
+}
+
+.processSteps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.processStep {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.processStep:hover {
+  transform: translateY(-3px);
+}
+
+.stepNumber {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 auto 20px;
+}
+
+.processStep h3 {
+  font-size: 20px;
+  color: #1f2937;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.processStep p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Authorities Section */
+.authoritiesSection {
+  background-color: #ffffff;
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  margin: 0 -20px 80px;
+}
+
+.authoritiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.authorityCard {
+  background-color: #f9fafb;
+  padding: 30px;
+  border-radius: 15px;
+  border-left: 5px solid #2563eb;
+  transition: all 0.3s ease;
+}
+
+.authorityCard:hover {
+  background-color: #f3f4f6;
+  transform: translateX(5px);
+}
+
+.authorityCard h3 {
+  font-size: 20px;
+  color: #1f2937;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.authorityCard p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.contactIcon {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Issue Types Section */
+.issueTypesSection {
+  margin-bottom: 80px;
+}
+
+.issueTypesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.issueTypeCard {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.issueTypeCard:hover {
+  transform: translateY(-3px);
+}
+
+.issueTypeCard h3 {
+  font-size: 22px;
+  color: #1f2937;
+  margin-bottom: 20px;
+  font-weight: 600;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.issueList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.issueList li {
+  padding: 8px 0;
+  color: #6b7280;
+  position: relative;
+  padding-left: 25px;
+}
+
+.issueList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+/* Stats Section */
+.statsSection {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  color: white;
+  padding: 60px 40px;
+  border-radius: 20px;
+  margin: 0 -20px 80px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.statCard {
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 48px;
+  font-weight: bold;
+  color: #60a5fa;
+  margin-bottom: 10px;
+}
+
+.statLabel {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* CTA Section */
+.ctaSection {
+  background-color: #ffffff;
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 -20px 80px;
+}
+
+.ctaContent h2 {
+  font-size: 32px;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+.ctaContent p {
+  font-size: 18px;
+  color: #6b7280;
+  margin-bottom: 40px;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaButtonPrimary,
+.ctaButtonSecondary {
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.ctaButtonPrimary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.ctaButtonPrimary:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.ctaButtonSecondary {
+  background-color: transparent;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+
+.ctaButtonSecondary:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #1f2937;
+  color: #d1d5db;
+  margin-top: auto;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.footerSection h4 {
+  margin: 0 0 20px 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.footerSection p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footerLink {
+  display: block;
+  text-decoration: none;
+  color: #d1d5db;
+  margin-bottom: 10px;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: #60a5fa;
+}
+
+.footerBottom {
+  border-top: 1px solid #374151;
+  padding: 20px;
+  text-align: center;
+}
+
+.footerBottom p {
+  margin: 0;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .headerContainer {
+    padding: 0 15px;
+    height: 60px;
+  }
+  
+  .mainContainer {
+    padding: 0 15px;
+  }
+  
+  .heroSection {
+    padding: 60px 20px 40px;
+    margin: 0 -15px 40px;
+  }
+  
+  .heroContent h1 {
+    font-size: 36px;
+  }
+  
+  .heroDescription {
+    font-size: 18px;
+  }
+  
+  .missionSection,
+  .authoritiesSection,
+  .statsSection,
+  .ctaSection {
+    padding: 40px 20px;
+    margin: 0 -15px 60px;
+  }
+  
+  .missionGrid,
+  .authoritiesGrid,
+  .processSteps,
+  .issueTypesGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footerContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 40px 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroContent h1 {
+    font-size: 28px;
+  }
+  
+  .sectionContent h2 {
+    font-size: 28px;
+  }
+  
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footerContainer {
+    grid-template-columns: 1fr;
+  }
+}

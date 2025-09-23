@@ -10,19 +10,24 @@ export default function AuthorityLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/authority/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch("/api/authority/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.success) {
-      alert("Authority logged in!");
-      window.location.href = "/authority/dashboard";
-    } else {
-      alert("Invalid credentials.");
+      if (data.success) {
+        alert("Authority logged in!");
+        window.location.href = "/authority/dashboard";
+      } else {
+        alert("Invalid credentials.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Login failed. Please try again.");
     }
   };
 

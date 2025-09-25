@@ -1,20 +1,39 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import "../../style/pu-login.css";
+import "../../style/au-login.css";
 
-export default function PublicUserLogin() {
+export default function AuthorityLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    alert(`Public User Login\nEmail: ${email}`);
+
+    try {
+      const response = await fetch("/api/public-user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("User logged in!");
+        window.location.href = "/public-user/dashboard";
+      } else {
+        alert("Invalid credentials.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Login failed. Please try again.");
+    }
   };
 
   return (
-    <div className="public-container">
-      <h2>Public User Login</h2>
+    <div className="authority-container">
+      <h2>User Login</h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"
@@ -33,7 +52,7 @@ export default function PublicUserLogin() {
         <button type="submit">Login</button>
       </form>
       <p>
-        Don&apos;t have an account? <Link href="/public-user/signup">Sign Up</Link>
+        {"Don't have an account? "} <Link href="/authority/signup">Sign Up</Link>
       </p>
     </div>
   );

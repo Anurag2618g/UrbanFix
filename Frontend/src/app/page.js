@@ -33,23 +33,6 @@ const HomePage = () => {
   }, [inspirationStories.length]);
 
   return (
-<<<<<<< HEAD:Frontend/src/app/page.js
-    <div className="home-container">
-      <h1>Civic Issue Portal</h1>
-      <p>Select your login type:</p>
-      <Link href="/public-user/login">
-        <button className="citizen-btn">Public Login</button>
-      </Link>
-      <Link href="/authority/login">
-        <button className="authority-btn">Authority Login</button>
-      </Link>
-      <Link href="/public-user/dashboard">
-      <button>public dashboard</button>
-      </Link>
-      <Link href="/authority/components/home">
-      <button>authority dashboard</button>
-      </Link>
-=======
     <div className="homepage">
       {/* Navigation */}
       <nav className="navbar">
@@ -57,7 +40,7 @@ const HomePage = () => {
           <div className="logo"><h2>CivicHub</h2></div>
           <div className="nav-buttons">
             <Link href="/public-user/login" className="nav-btn public-btn">Public</Link>
-            <a href="/authority/login" className="nav-btn authority-btn">Authority</a>
+            <Link href="/authority/login" className="nav-btn authority-btn">Authority</Link>
           </div>
         </div>
       </nav>
@@ -182,7 +165,6 @@ const HomePage = () => {
           </div>
         </div>
       </footer>
->>>>>>> main:src/app/page.js
     </div>
   );
 };

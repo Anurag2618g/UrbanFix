@@ -11,7 +11,7 @@ export default function AuthorityLogin() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/authority/login", {
+      const response = await fetch("/api/public-user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -20,7 +20,7 @@ export default function AuthorityLogin() {
       const data = await response.json();
 
       if (data.success) {
-        alert("Authority logged in!");
+        alert("User logged in!");
         window.location.href = "/public-user/dashboard";
       } else {
         alert("Invalid credentials.");
@@ -33,7 +33,7 @@ export default function AuthorityLogin() {
 
   return (
     <div className="authority-container">
-      <h2>Authority Login</h2>
+      <h2>User Login</h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"

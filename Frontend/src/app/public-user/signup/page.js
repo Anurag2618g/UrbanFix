@@ -11,7 +11,7 @@ export default function AuthoritySignup() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/authority/signup", {
+      const response = await fetch("/api/public-user/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -21,7 +21,7 @@ export default function AuthoritySignup() {
 
       if (data.success) {
         alert("Signup successful! Please login.");
-        window.location.href = "/authority/login";
+        window.location.href = "/public-user/login";
       } else {
         alert("Signup failed. User may already exist.");
       }
@@ -33,7 +33,7 @@ export default function AuthoritySignup() {
 
   return (
     <div className="authority-container">
-      <h2>Authority Signup</h2>
+      <h2>User Signup</h2>
       <form onSubmit={handleSignup}>
         <input
           type="email"

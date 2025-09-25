@@ -1,0 +1,396 @@
+/* styles/Home.module.css */
+
+/* Global Container */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+}
+
+/* Header Styles */
+.header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.logo h2 {
+  color: #2563eb;
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logo h2:hover {
+  color: #1d4ed8;
+}
+
+.navigation {
+  display: flex;
+  gap: 30px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.navLink:hover {
+  color: #2563eb;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #2563eb;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  padding: 40px 0;
+}
+
+.mainContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  min-height: 600px;
+}
+
+/* Left Panel */
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.actionCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.actionCard h3 {
+  margin: 0 0 25px 0;
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #374151;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.actionButton:hover {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.buttonIcon {
+  font-size: 20px;
+  margin-right: 12px;
+  width: 24px;
+  text-align: center;
+}
+
+/* Right Panel */
+.rightPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.issuesCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  height: fit-content;
+}
+
+.issuesCard h3 {
+  margin: 0 0 25px 0;
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.issuesContainer {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.issuesContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.issuesContainer::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.issuesContainer::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.issuesContainer::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.issueItem {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.issueItem:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.issueHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.issueItem h4 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 16px;
+  font-weight: 600;
+  flex: 1;
+  margin-right: 15px;
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reported {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.inprogress {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.resolved {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.issueDescription {
+  margin: 0 0 15px 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.issueFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.issueLocation {
+  display: flex;
+  align-items: center;
+}
+
+.issueDate {
+  font-weight: 500;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #1f2937;
+  color: #d1d5db;
+  margin-top: auto;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.footerSection h4 {
+  margin: 0 0 20px 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.footerSection p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footerLink {
+  display: block;
+  text-decoration: none;
+  color: #d1d5db;
+  margin-bottom: 10px;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: #60a5fa;
+}
+
+.socialLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.socialLink {
+  text-decoration: none;
+  color: #d1d5db;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.socialLink:hover {
+  color: #60a5fa;
+}
+
+.footerBottom {
+  border-top: 1px solid #374151;
+  padding: 20px;
+  text-align: center;
+}
+
+.footerBottom p {
+  margin: 0;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .headerContainer {
+    padding: 0 15px;
+    height: 60px;
+  }
+  
+  .logo h2 {
+    font-size: 20px;
+  }
+  
+  .navigation {
+    gap: 15px;
+  }
+  
+  .navLink {
+    font-size: 14px;
+  }
+  
+  .mainContainer {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 0 15px;
+  }
+  
+  .actionCard,
+  .issuesCard {
+    padding: 20px;
+  }
+  
+  .footerContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 40px 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation {
+    gap: 10px;
+  }
+  
+  .navLink {
+    font-size: 13px;
+  }
+  
+  .footerContainer {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .issuesContainer {
+    max-height: 400px;
+  }
+}

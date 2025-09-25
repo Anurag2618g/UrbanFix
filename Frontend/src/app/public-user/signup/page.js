@@ -1,22 +1,40 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import "../../style/pu-sign.css";
+import "../../style/au-login.css";
 
-export default function PublicSignup() {
+export default function AuthoritySignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    alert(`Signup successful!\nEmail: ${email}`);
-    // TODO: connect backend API
+
+    try {
+      const response = await fetch("/api/authority/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Signup successful! Please login.");
+        window.location.href = "/authority/login";
+      } else {
+        alert("Signup failed. User may already exist.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Signup failed. Please try again.");
+    }
   };
 
   return (
-    <div className="public-container">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSignup} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+    <div className="authority-container">
+      <h2>Authority Signup</h2>
+      <form onSubmit={handleSignup}>
         <input
           type="email"
           placeholder="Email"
@@ -34,7 +52,7 @@ export default function PublicSignup() {
         <button type="submit">Sign Up</button>
       </form>
       <p>
-        Already have an account? <Link href="/public-user/login">Login</Link>
+        {"Already have an account? "} <Link href="/authority/login">Login</Link>
       </p>
     </div>
   );

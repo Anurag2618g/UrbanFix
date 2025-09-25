@@ -40,7 +40,7 @@ const HomePage = () => {
           <div className="logo"><h2>CivicHub</h2></div>
           <div className="nav-buttons">
             <Link href="/public-user/login" className="nav-btn public-btn">Public</Link>
-            <a href="/authority/login" className="nav-btn authority-btn">Authority</a>
+            <Link href="/authority/login" className="nav-btn authority-btn">Authority</Link>
           </div>
         </div>
       </nav>

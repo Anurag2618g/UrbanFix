@@ -2,5 +2,13 @@
   {
     "email": "sdfef@email.com",
     "password": "12345"
+  },
+  {
+    "email": "devedra@gmail.com",
+    "password": "123456"
+  },
+  {
+    "email": "sihtesting@gmail.com",
+    "password": "Sihtesting2025"
   }
 ]

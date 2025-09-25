@@ -74,7 +74,7 @@ export default function Home() {
             </Link>
           </div>
           <nav className={styles.navigation}>
-            <Link href="/" className={styles.navLink}>Home</Link>
+            <Link href="/public-user/dashboard" className={styles.navLink}>Home</Link>
             <Link href="/public-user/about" className={styles.navLink}>About</Link>
             <Link href="/public-user/feedback" className={styles.navLink}>Feedback</Link>
           </nav>

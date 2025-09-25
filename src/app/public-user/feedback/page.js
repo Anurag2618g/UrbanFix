@@ -1,11 +1,9 @@
-"use client";  // ⚠️ Required for React hooks
+"use client";
 
 import { useState } from "react";
-
 import Head from 'next/head';
 import Footer from '../../public-user/components/Footer/page.js';
 import Header from '../../public-user/components/Header/page.js';
-
 import styles from '../../style/Feedback.module.css';
 
 export default function Feedback() {
@@ -18,6 +16,7 @@ export default function Feedback() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,12 +29,43 @@ export default function Feedback() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/feedback/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitSuccess(true);
+        console.log('Feedback submitted with ID:', result.id);
+      } else {
+        setSubmitError(result.error || 'Failed to submit feedback');
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      setSubmitError('Network error. Please try again.');
+    } finally {
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-    }, 2000);
+    }
+  };
+
+  const resetForm = () => {
+    setSubmitSuccess(false);
+    setSubmitError('');
+    setFormData({
+      name: '',
+      email: '',
+      category: '',
+      message: '',
+      rating: 5
+    });
   };
 
   if (submitSuccess) {
@@ -50,19 +80,10 @@ export default function Feedback() {
             <div className={styles.success}>
               <div className={styles.successIcon}>✅</div>
               <h1>Thank You!</h1>
-              <p>Your feedback has been submitted successfully. We appreciate your input!</p>
+              <p>Your feedback has been submitted successfully and saved to our records. We appreciate your input!</p>
               <button 
                 className={styles.submitBtn}
-                onClick={() => {
-                  setSubmitSuccess(false);
-                  setFormData({
-                    name: '',
-                    email: '',
-                    category: '',
-                    message: '',
-                    rating: 5
-                  });
-                }}
+                onClick={resetForm}
               >
                 Submit More Feedback
               </button>
@@ -90,10 +111,16 @@ export default function Feedback() {
             <p>Help us improve CivicConnect with your valuable input</p>
           </section>
 
+          {submitError && (
+            <div className={styles.error}>
+              <p>❌ {submitError}</p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className={styles.feedbackForm}>
             <div className={styles.inputRow}>
               <div className={styles.inputGroup}>
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Name *</label>
                 <input
                   type="text"
                   id="name"
@@ -102,11 +129,12 @@ export default function Feedback() {
                   onChange={handleInputChange}
                   className={styles.input}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               
               <div className={styles.inputGroup}>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Email *</label>
                 <input
                   type="email"
                   id="email"
@@ -115,12 +143,13 @@ export default function Feedback() {
                   onChange={handleInputChange}
                   className={styles.input}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="category">Feedback Category</label>
+              <label htmlFor="category">Feedback Category *</label>
               <select
                 id="category"
                 name="category"
@@ -128,6 +157,7 @@ export default function Feedback() {
                 onChange={handleInputChange}
                 className={styles.select}
                 required
+                disabled={isSubmitting}
               >
                 <option value="">Select Category</option>
                 <option value="general">General Feedback</option>
@@ -135,11 +165,14 @@ export default function Feedback() {
                 <option value="feature">Feature Request</option>
                 <option value="usability">Usability</option>
                 <option value="performance">Performance</option>
+                <option value="security">Security Concern</option>
+                <option value="accessibility">Accessibility</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="rating">Overall Rating</label>
+              <label htmlFor="rating">Overall Rating *</label>
               <div className={styles.ratingGroup}>
                 {[1, 2, 3, 4, 5].map(num => (
                   <label key={num} className={styles.ratingLabel}>
@@ -149,6 +182,7 @@ export default function Feedback() {
                       value={num}
                       checked={formData.rating == num}
                       onChange={handleInputChange}
+                      disabled={isSubmitting}
                     />
                     <span className={styles.star}>⭐</span>
                     <span>{num}</span>
@@ -158,7 +192,7 @@ export default function Feedback() {
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="message">Your Feedback</label>
+              <label htmlFor="message">Your Feedback *</label>
               <textarea
                 id="message"
                 name="message"
@@ -168,7 +202,17 @@ export default function Feedback() {
                 className={styles.textarea}
                 placeholder="Share your thoughts, suggestions, or report issues..."
                 required
+                disabled={isSubmitting}
+                minLength={10}
+                maxLength={2000}
               />
+              <small className={styles.charCount}>
+                {formData.message.length}/2000 characters
+              </small>
+            </div>
+
+            <div className={styles.formNote}>
+              <p><strong>Note:</strong> All fields marked with * are required. Your feedback will be saved and reviewed by our team.</p>
             </div>
 
             <button

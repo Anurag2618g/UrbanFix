@@ -1,67 +1,83 @@
-// pages/index.js
-import Head from 'next/head';
-import Link from 'next/link';
-import styles from '../../style/au-dashboard.module.css';
+'use client'
 
+import { useEffect, useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import styles from "../../style/au-dashboard.module.css";
+
+const FAKE_ISSUES = [
+  {
+    id: "FAKE-1",
+    issueTitle: "Road Pothole on Main Street",
+    textDescription:
+      "Large pothole causing traffic issues and vehicle damage",
+    issueCategory: "infrastructure",
+    createdAt: "2024-09-20",
+    fake: true
+  },
+  {
+    id: "FAKE-2",
+    issueTitle: "Street Light Not Working",
+    textDescription:
+      "Street light has been out for 2 weeks, safety concern",
+    issueCategory: "utilities",
+    createdAt: "2024-09-18",
+    fake: true
+  },
+  {
+    id: "FAKE-3",
+    issueTitle: "Garbage Collection Missed",
+    textDescription:
+      "Garbage not collected for 3 days in residential area",
+    issueCategory: "waste",
+    createdAt: "2024-09-15",
+    fake: true
+  },
+  {
+    id: "FAKE-4",
+    issueTitle: "Water Supply Issue",
+    textDescription:
+      "Low water pressure reported by multiple residents",
+    issueCategory: "utilities",
+    createdAt: "2024-09-22",
+    fake: true
+  }
+];
 
 export default function Home() {
-  // Sample civic issues data
-  const civicIssues = [
-    {
-      id: 1,
-      title: "Road Pothole on Main Street",
-      description: "Large pothole causing traffic issues and vehicle damage",
-      location: "Main Street, Downtown",
-      status: "Reported",
-      date: "2024-09-20"
-    },
-    {
-      id: 2,
-      title: "Street Light Not Working",
-      description: "Street light has been out for 2 weeks, safety concern",
-      location: "Park Avenue, Sector 5",
-      status: "In Progress",
-      date: "2024-09-18"
-    },
-    {
-      id: 3,
-      title: "Garbage Collection Missed",
-      description: "Garbage not collected for 3 days in residential area",
-      location: "Green Valley, Block B",
-      status: "Resolved",
-      date: "2024-09-15"
-    },
-    {
-      id: 4,
-      title: "Water Supply Issue",
-      description: "Low water pressure reported by multiple residents",
-      location: "Civil Lines, Ward 12",
-      status: "Reported",
-      date: "2024-09-22"
-    },
-    {
-      id: 5,
-      title: "Broken Sidewalk",
-      description: "Cracked sidewalk poses risk to pedestrians",
-      location: "Market Road, Near Bus Stop",
-      status: "In Progress",
-      date: "2024-09-19"
-    },
-    {
-      id: 6,
-      title: "Noise Pollution",
-      description: "Construction work during prohibited hours",
-      location: "Residential Area, Sector 8",
-      status: "Reported",
-      date: "2024-09-21"
-    }
-  ];
+  const [civicIssues, setCivicIssues] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchIssues = async () => {
+      try {
+        const res = await fetch("/api/issues");
+        const realIssues = await res.json();
+
+        // Real issues first, fake ones after
+        setCivicIssues([
+          ...realIssues.reverse(),
+          ...FAKE_ISSUES
+        ]);
+      } catch (err) {
+        console.error("Failed to fetch issues", err);
+        setCivicIssues(FAKE_ISSUES);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchIssues();
+  }, []);
 
   return (
     <div className={styles.container}>
       <Head>
         <title>CivicConnect - Public Issues Platform</title>
-        <meta name="description" content="Report and track civic issues in your community" />
+        <meta
+          name="description"
+          content="Report and track civic issues in your community"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -74,36 +90,45 @@ export default function Home() {
             </Link>
           </div>
           <nav className={styles.navigation}>
-            <Link href="/public-user/dashboard" className={styles.navLink}>Home</Link>
-            <Link href="/public-user/about" className={styles.navLink}>About</Link>
-            <Link href="/public-user/feedback" className={styles.navLink}>Feedback</Link>
+            <Link href="/public-user/dashboard" className={styles.navLink}>
+              Home
+            </Link>
+            <Link href="/public-user/about" className={styles.navLink}>
+              About
+            </Link>
+            <Link href="/public-user/feedback" className={styles.navLink}>
+              Feedback
+            </Link>
           </nav>
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main */}
       <main className={styles.main}>
         <div className={styles.mainContainer}>
-          {/* Left Side - User Actions */}
+          {/* Left Panel */}
           <div className={styles.leftPanel}>
             <div className={styles.actionCard}>
               <h3>Quick Actions</h3>
               <div className={styles.actionButtons}>
-                <Link href="/public-user/reporting_issue" className={styles.actionButton}>
+                <Link
+                  href="/public-user/reporting_issue"
+                  className={styles.actionButton}
+                >
                   <div className={styles.buttonIcon}>📝</div>
                   <span>Report Issue</span>
                 </Link>
-                
+
                 <Link href="/my-feedback" className={styles.actionButton}>
                   <div className={styles.buttonIcon}>💬</div>
-                  <span>my feed</span>
+                  <span>My Feed</span>
                 </Link>
-                
+
                 <Link href="/near-me" className={styles.actionButton}>
                   <div className={styles.buttonIcon}>📍</div>
                   <span>Near Me</span>
                 </Link>
-                
+
                 <Link href="/in-city" className={styles.actionButton}>
                   <div className={styles.buttonIcon}>🏙️</div>
                   <span>In City</span>
@@ -112,26 +137,46 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side - Civic Issues */}
+          {/* Right Panel */}
           <div className={styles.rightPanel}>
             <div className={styles.issuesCard}>
               <h3>Recent Civic Issues</h3>
+
               <div className={styles.issuesContainer}>
-                {civicIssues.map((issue) => (
-                  <div key={issue.id} className={styles.issueItem}>
-                    <div className={styles.issueHeader}>
-                      <h4>{issue.title}</h4>
-                      <span className={`${styles.status} ${styles[issue.status.toLowerCase().replace(' ', '')]}`}>
-                        {issue.status}
-                      </span>
+                {loading && <p>Loading issues...</p>}
+
+                {!loading &&
+                  civicIssues.map((issue) => (
+                    <div key={issue.id} className={styles.issueItem}>
+                      <div className={styles.issueHeader}>
+                        <h4>{issue.issueTitle}</h4>
+
+                        <span
+                          className={`${styles.status} ${
+                            issue.fake
+                              ? styles.resolved
+                              : styles.reported
+                          }`}
+                        >
+                          {issue.fake ? "In progress" : "Reported"}
+                        </span>
+                      </div>
+
+                      <p className={styles.issueDescription}>
+                        {issue.textDescription ||
+                          "No description provided"}
+                      </p>
+
+                      <div className={styles.issueFooter}>
+                        <span className={styles.issueLocation}>
+                          🗂️ {issue.issueCategory}
+                        </span>
+                        <span className={styles.issueDate}>
+                          {new Date(issue.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
                     </div>
-                    <p className={styles.issueDescription}>{issue.description}</p>
-                    <div className={styles.issueFooter}>
-                      <span className={styles.issueLocation}>📍 {issue.location}</span>
-                      <span className={styles.issueDate}>{issue.date}</span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>
@@ -140,38 +185,6 @@ export default function Home() {
 
       {/* Footer */}
       <footer className={styles.footer}>
-        <div className={styles.footerContainer}>
-          <div className={styles.footerSection}>
-            <h4>CivicConnect</h4>
-            <p>Connecting citizens with their community</p>
-          </div>
-          
-          <div className={styles.footerSection}>
-            <h4>Quick Links</h4>
-            <Link href="/report-issue" className={styles.footerLink}>Report Issue</Link>
-            <Link href="/track-issue" className={styles.footerLink}>Track Issue</Link>
-            <Link href="/about" className={styles.footerLink}>About Us</Link>
-            <Link href="/contact" className={styles.footerLink}>Contact</Link>
-          </div>
-          
-          <div className={styles.footerSection}>
-            <h4>Support</h4>
-            <Link href="/help" className={styles.footerLink}>Help Center</Link>
-            <Link href="/feedback" className={styles.footerLink}>Feedback</Link>
-            <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
-            <Link href="/terms" className={styles.footerLink}>Terms of Service</Link>
-          </div>
-          
-          <div className={styles.footerSection}>
-            <h4>Connect</h4>
-            <div className={styles.socialLinks}>
-              <a href="#" className={styles.socialLink}>Facebook</a>
-              <a href="#" className={styles.socialLink}>Twitter</a>
-              <a href="#" className={styles.socialLink}>Instagram</a>
-            </div>
-          </div>
-        </div>
-        
         <div className={styles.footerBottom}>
           <p>&copy; 2024 CivicConnect. All rights reserved.</p>
         </div>

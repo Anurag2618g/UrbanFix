@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏙️ Civic Problem Reporting Platform
 
-## Getting Started
+A full-stack **Next.js (App Router)** application that allows citizens to report civic problems
+(such as potholes, garbage overflow, water leakage, broken streetlights) using **image upload and voice recording**.
 
-First, run the development server:
+Reports are securely managed through an **admin dashboard** with authentication, status tracking,
+and moderation features.
 
-```bash
+---
+
+## 🚀 Core Features
+
+### Citizen Features
+- JWT-based authentication
+- Report civic issues using:
+  - 📸 Image upload
+  - 🎙️ Voice recording
+- Track report status (Pending → In Progress → Resolved)
+
+### Admin Features
+- Secure admin login
+- View, filter, and manage all reports
+- Update report status
+- Remove invalid or spam reports
+
+---
+
+## 🧠 Why This Project Matters
+
+Traditional civic reporting systems are slow, inaccessible, and opaque.
+
+This app:
+- Reduces friction using media-first reporting
+- Demonstrates real-world full-stack architecture
+- Mirrors production-grade government systems
+
+---
+
+## 🏗️ Tech Stack
+
+- **Next.js (App Router)**
+- **TypeScript**
+- **MongoDB + Mongoose**
+- **JWT Authentication**
+- **Cloudinary** (image + audio storage)
+- **Tailwind CSS**
+
+---
+
+## 📁 Project Structure
+
+app/
+├─ auth/
+├─ report/
+├─ admin/
+├─ api/
+│ ├─ auth/
+│ ├─ reports/
+├─ layout.tsx
+├─ page.tsx
+
+lib/
+├─ db.ts
+├─ auth.ts
+
+models/
+├─ User.ts
+├─ Report.ts
+
+yaml
+Copy code
+
+---
+
+## 🔐 Environment Variables
+
+Create `.env.local`:
+
+```env
+MONGODB_URI=
+JWT_SECRET=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+## 🛠️ Run Locally
+
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📈 Future Enhancements
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+AI-based issue classification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Speech-to-text processing
 
-## Learn More
+Map-based visualization
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Department-wise routing

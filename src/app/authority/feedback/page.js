@@ -1,19 +1,9 @@
-// pages/admin/feedback.js
-// OR
-// app/admin/feedback/page.js (if using App Router)
 
 "use client";
 import { useState, useEffect } from "react";
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { Search, Download, Eye, Calendar, Star, TrendingUp, Users, MessageSquare, Filter, BarChart3, RefreshCw } from "lucide-react";
-
-
-import Header from '../components/Header/page';
-import Footer from '../components/Footer/page';
-
-
-// Import the CSS file
 import '../../style/FeedbackDashboard.css';
 
 export default function FeedbackDashboardPage() {

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Header from './public-user/Navigation';
+import Header from "../components/Header/page";
 const ResolvedIssueItem = ({ issue, onVote }) => {
   return (
    
